@@ -1,0 +1,37 @@
+@model CalculatorModel
+
+<h1>Calculator</h1>
+
+<form asp-controller="Calculator" asp-action="Calculate" method="post">
+    <input asp-for="X" /> Operator:
+    <select asp-for="Operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <input asp-for="Y" />
+    <input type="submit" value="Calculate" />
+</form>
+
+@if (ViewBag.Result != null)
+{
+    <h2>Result: @ViewBag.Result</h2>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="text-danger">@ViewBag.Error</div>
+}
+
+@if (ViewBag.CalculationHistory.Count > 0)
+{
+    <h2>Calculation History</h2>
+
+    <ul>
+        @for (int i = 0; i < ViewBag.CalculationHistory.Count; i++)
+        {
+            <div>Calculation @(i + 1): @ViewBag.CalculationHistory[i]</div>
+        }
+    </ul>
+}
